@@ -1,11 +1,11 @@
 {
-  "schema": "hc.current-state.v0.2",
+  "schema": "hc.current-state.v0.3",
   "project_id": "HC",
   "project_name": "Harness Council",
   "phase": "BOOTSTRAP",
   "branch": "main",
   "head_policy": "RESOLVE_LIVE_FROM_GIT",
-  "last_reconciled_parent_head": "a99c13ef3037c3b413629b8f2aa2b52580b1828d",
+  "last_reconciled_parent_head": "feaf089685d42e1c13c1806fa703123a02bb7d03",
   "canonical_root": "/home/aazcl/repos/HC",
   "canonical_runtime": "WSL2/kali-linux",
   "active_children": 0,
@@ -15,19 +15,21 @@
     "A_ARCHITECTURE_NORTH_STAR": "CANONICALIZED",
     "B_CAPABILITY_MAP": "CANONICALIZED",
     "C_ROLE_AUTHORITY_MODEL": "CANONICALIZED",
-    "D_TASK_WORK_UNIT_CONTRACTS": "ELIGIBLE",
-    "E_TESTER_VERIFIER_EVIDENCE": "BLOCKED_BY_D",
+    "D_TASK_WORK_UNIT_CONTRACTS": "CANONICALIZED",
+    "E_TESTER_VERIFIER_EVIDENCE": "ELIGIBLE",
     "F_ISSUE_ATTEMPT_STATE_MODEL": "CANONICALIZED",
-    "G_SPECIALIST_ESCALATION": "BLOCKED_BY_D_E",
-    "H_PARALLEL_DAG_RESOURCE_OWNERSHIP": "BLOCKED_BY_D",
+    "G_SPECIALIST_ESCALATION": "BLOCKED_BY_E",
+    "H_PARALLEL_DAG_RESOURCE_OWNERSHIP": "ELIGIBLE",
     "I_TECHNOLOGY_SELECTION_FRAMEWORK": "CANONICALIZED",
-    "J_TECHNOLOGY_REGISTRY_WATCH": "ELIGIBLE",
+    "J_TECHNOLOGY_REGISTRY_WATCH": "CANONICALIZED",
     "K_RUNTIME_REPO_BOUNDARY": "CANONICALIZED"
   },
   "candidate_pocs": {
     "OPENCLAW_HC_E05": {
-      "lifecycle": "PARTIAL_VERIFIED",
+      "lifecycle_state": "IMPLEMENTED",
+      "verification_status": "PARTIAL_VERIFIED",
       "active_owner": false,
+      "selected_version": "2026.9.5",
       "real_model_execution": "BLOCKED_UPSTREAM_DEFECT",
       "local_repair_churn": "STOP",
       "evidence": [
@@ -40,12 +42,15 @@
     "HC_BOOTSTRAP_RUNTIME_BRIDGE_001": "OPEN_DEFERRED"
   },
   "next_parallel_fronts": [
-    "D_TASK_WORK_UNIT_CONTRACTS",
-    "J_TECHNOLOGY_REGISTRY_WATCH"
+    "E_TESTER_VERIFIER_EVIDENCE",
+    "H_PARALLEL_DAG_RESOURCE_OWNERSHIP"
   ],
   "notes": [
-    "A/B/C/F/I/K bootstrap fronts are canonical.",
+    "A/B/C/D/F/I/J/K bootstrap fronts are canonical.",
+    "E and H are independently eligible and should advance in parallel.",
+    "G becomes eligible after E converges.",
     "Git is authoritative for live HEAD; canonical files do not embed their own commit SHA.",
-    "OpenClaw remains a candidate and is not an active owner."
+    "Technology lifecycle and verification status are distinct.",
+    "OpenClaw is IMPLEMENTED + PARTIAL_VERIFIED and is not an ACTIVE_OWNER."
   ]
 }

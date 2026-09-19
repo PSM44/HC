@@ -1,4 +1,4 @@
-HC MORCH CONTINUITY — v0.2
+HC MORCH CONTINUITY — v0.3
 
 PROJECT=Harness Council
 PROJECT_ID=HC
@@ -10,7 +10,7 @@ REMOTE=https://github.com/PSM44/HC.git
 CANONICAL_RUNTIME=WSL2/kali-linux
 
 HEAD_POLICY=RESOLVE_LIVE_FROM_GIT
-LAST_RECONCILED_PARENT_HEAD=a99c13ef3037c3b413629b8f2aa2b52580b1828d
+LAST_RECONCILED_PARENT_HEAD=feaf089685d42e1c13c1806fa703123a02bb7d03
 
 Authority:
 HUMAN > MORCH > RORCH > EXECUTOR
@@ -31,26 +31,28 @@ Operating invariants:
 - No false DONE.
 - Canonical conflicting writers are prohibited.
 - Technology implementation never changes role authority.
+- Technology lifecycle and verification status are distinct.
 
 Canonical bootstrap fronts:
 - A Architecture/North Star: CANONICALIZED
 - B Capability Map: CANONICALIZED
 - C Role/Authority: CANONICALIZED
+- D Task/Work Unit Contracts: CANONICALIZED
 - F Issue/Attempt State: CANONICALIZED
 - I Technology Selection: CANONICALIZED
+- J Technology Registry/Watch: CANONICALIZED
 - K Runtime/Repo Boundary: CANONICALIZED
 
 Next eligible fronts:
-- D Task / Work Unit Contracts
-- J Technology Registry / Watch
+- E Tester / Verifier / Evidence
+- H Parallel DAG / Resource Ownership
 
 Dependency state:
-- E Tester/Verifier/Evidence: blocked by D
-- H Parallel DAG/Resource Ownership: blocked by D
-- G Specialist Escalation: blocked by D + E
+- G Specialist Escalation: BLOCKED_BY_E
 
 OpenClaw HC-E05:
-- PARTIAL_VERIFIED
+- lifecycle_state=IMPLEMENTED
+- verification_status=PARTIAL_VERIFIED
 - ACTIVE_OWNER=NO
 - real model execution blocked by upstream prepared-runtime/plugin-generation defect candidate
 - canonical evidence exists under 52_EVIDENCE/HC-E05
@@ -61,4 +63,4 @@ Runtime bridge:
 HC-BOOTSTRAP-RUNTIME-BRIDGE-001 remains OPEN_DEFERRED.
 
 Current mission:
-Advance D and J in parallel, then recompute eligibility for E/H and subsequently G.
+Advance E and H concurrently. Once E converges, recompute G eligibility.

@@ -1,26 +1,18 @@
 # HC Architecture & Governance Baseline
 
-VERSION: v0.2-BOOTSTRAP
+VERSION: v0.3-BOOTSTRAP
 STATUS: PARTIAL_BASELINE_ACTIVE
 
-This file is the architecture baseline index. Detailed normative content lives
-in the canonical source documents listed below.
+This file is the bootstrap architecture index. Detailed normative content lives
+in the canonical source documents referenced below.
 
-## Canonicalized bootstrap areas
+## Canonicalized fronts
 
 ### A — North Star / Architecture Intent
 
 Source:
 
 `10_ARCHITECTURE/HC.NORTH_STAR.md`
-
-Covers:
-
-- NORTH_STAR
-- NON_GOALS
-- automation target
-- system invariants
-- terminal convergence
 
 Status:
 
@@ -32,18 +24,6 @@ Source:
 
 `10_ARCHITECTURE/HC.CAPABILITY_MAP.md`
 
-Covers:
-
-- control plane
-- execution plane
-- quality/evidence
-- state/recovery
-- memory/learning
-- integration
-- observability
-- technology governance
-- security/trust
-
 Status:
 
 `CANONICALIZED`
@@ -54,16 +34,30 @@ Source:
 
 `10_ARCHITECTURE/HC.ROLE_AUTHORITY_MODEL.md`
 
+Status:
+
+`CANONICALIZED`
+
+### D — Task / Work Unit Contracts
+
+Sources:
+
+- `11_CONTRACTS/HC.TASK_WORK_UNIT_CONTRACT.md`
+- `11_CONTRACTS/schemas/task-envelope.schema.json`
+- `11_CONTRACTS/schemas/work-unit.schema.json`
+
 Covers:
 
-- HUMAN
-- MORCH
-- RORCH
-- EXECUTOR
-- SPECIALIST
-- TESTER
-- VERIFIER
-- authority hierarchy
+- TaskEnvelope
+- WorkUnit
+- bounded authority
+- immutable delegation
+- permissions
+- mutation scope
+- acceptance criteria
+- evidence requirements
+- retry policy
+- terminal return
 
 Status:
 
@@ -75,15 +69,6 @@ Source:
 
 `12_STATE/HC.ISSUE_ATTEMPT_STATE_MODEL.md`
 
-Covers:
-
-- ISSUE_ID
-- ATTEMPT
-- state transitions
-- WAIT / RETRY / BLOCKED / FAIL
-- retry semantics
-- state/convergence relationship
-
 Status:
 
 `CANONICALIZED`
@@ -94,15 +79,25 @@ Source:
 
 `30_RESEARCH/HC.TECHNOLOGY_SELECTION_FRAMEWORK.md`
 
+Status:
+
+`CANONICALIZED`
+
+### J — Technology Registry / Watch
+
+Sources:
+
+- `30_RESEARCH/HC.TECHNOLOGY_REGISTRY.json`
+- `30_RESEARCH/technology-watch/HC.TECHNOLOGY_WATCH_POLICY.md`
+
 Covers:
 
 - technology lifecycle
-- research
-- ADRs
-- targeted PoCs
-- adoption
-- reassessment
+- verification status
+- ownership separation
+- candidate registry
 - Technology Watch
+- reassessment triggers
 
 Status:
 
@@ -114,73 +109,67 @@ Source:
 
 `10_ARCHITECTURE/HC.RUNTIME_REPO_BOUNDARY.md`
 
-Covers:
-
-- canonical WSL2 runtime
-- repository authority
-- Windows access clone
-- runtime isolation
-- execution bridge target
-
 Status:
 
 `CANONICALIZED`
 
-## Pending bootstrap areas
-
-### D — Task / Work Unit Contracts
-
-Status:
-
-`ELIGIBLE`
-
-Dependencies satisfied by B + C.
+## Eligible fronts
 
 ### E — Tester / Verifier / Evidence Contract
 
 Status:
 
-`BLOCKED_BY_D`
+`ELIGIBLE`
 
-### G — Specialist Escalation Contract
-
-Status:
-
-`BLOCKED_BY_D_E`
+Dependencies satisfied by C + D.
 
 ### H — Parallel DAG / Resource Ownership
 
 Status:
 
-`BLOCKED_BY_D`
+`ELIGIBLE`
 
-F and C are already satisfied.
+Dependencies satisfied by C + D + F.
 
-### J — Technology Registry / Watch
+## Blocked front
+
+### G — Specialist Escalation Contract
 
 Status:
 
-`ELIGIBLE`
+`BLOCKED_BY_E`
 
-Dependency I is satisfied.
+D is already satisfied. E remains outstanding.
 
 ## Current parallel frontier
 
 The next architecture iteration should advance:
 
-`D + J`
+`E + H`
 
 in parallel.
 
-After D converges, recompute E and H eligibility.
+After E converges, G becomes eligible.
+
+## Technology lifecycle rule
+
+Lifecycle state and verification status are separate axes.
+
+For OpenClaw HC-E05:
+
+- lifecycle state: `IMPLEMENTED`
+- verification status: `PARTIAL_VERIFIED`
+- active owner: `false`
+
+`PARTIAL_VERIFIED` is not a lifecycle state.
 
 ## HEAD authority
 
 Git is authoritative for the live repository HEAD.
 
-Canonical project files must not attempt to embed the SHA of the commit that
-contains themselves. State/continuity records therefore use:
+Canonical project files use:
 
 `HEAD_POLICY=RESOLVE_LIVE_FROM_GIT`
 
-and may record a previous observed/reconciled parent SHA for provenance.
+and record only a previously reconciled parent SHA for provenance rather than
+attempting to embed their own commit SHA.
