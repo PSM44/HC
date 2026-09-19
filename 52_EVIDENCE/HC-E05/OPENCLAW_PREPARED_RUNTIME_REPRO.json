@@ -1,0 +1,75 @@
+{
+  "AUTH": {
+    "PROFILE_PRESENT": true,
+    "SECRET_VALUES_INCLUDED": false,
+    "STATUSES": [
+      "usable"
+    ]
+  },
+  "CLASSIFICATION": "UPSTREAM_REPRODUCIBLE_DEFECT_CANDIDATE",
+  "CODEX_PLUGIN": {
+    "ACTIVATED": true,
+    "ACTIVATION_REASON": "codex agent runtime configured",
+    "AGENT_HARNESS_IDS": [
+      "codex"
+    ],
+    "ENABLED": true,
+    "ID": "codex",
+    "INTEGRITY_PRESENT": true,
+    "PACKAGE_VERSION": "2026.9.5",
+    "RESOLVED_VERSION": "2026.9.5",
+    "STATUS": "loaded",
+    "TRUSTED_OFFICIAL_INSTALL": true,
+    "TRUST_REASON": "trusted-official"
+  },
+  "CONCLUSION": {
+    "LOCAL_REPAIR_CHURN": "STOP",
+    "NEXT_ACTION": "PREPARE_UPSTREAM_REPORT"
+  },
+  "ENVIRONMENT": {
+    "OPENCLAW_VERSION": "OpenClaw 2026.9.5 (ec9c1a1)",
+    "PRIMARY_AUTH_PROFILE": "openai:psanmartin",
+    "PRIMARY_MODEL": "openai/gpt-6-astra"
+  },
+  "EVIDENCE_ID": "HC-E05-OPENCLAW-PREPARED-RUNTIME-001",
+  "LIKELY_LAYER": "PREPARED_RUNTIME_PLUGIN_GENERATION",
+  "MODEL_ROUTE": {
+    "AUTH_STATUSES": [
+      "usable"
+    ],
+    "MODELS_STATUS_RC": 1,
+    "RUNTIME_DETAILS": [
+      "No enabled plugin owns agent harness \"codex\"."
+    ],
+    "RUNTIME_REASONS": [
+      "owner-plugin-not-activatable"
+    ],
+    "RUNTIME_STATUSES": [
+      "unavailable"
+    ]
+  },
+  "NEGATIVE_ASSERTIONS": {
+    "HC_REPO_MUTATED_BY_OPENCLAW": false,
+    "MODEL_INFERENCE_PERFORMED": false,
+    "MODEL_PROBE_USED": false,
+    "PERSISTENT_OPENCLAW_PROCESS": false
+  },
+  "PLUGIN_DOCTOR": {
+    "DIAGNOSTICS": [],
+    "OK": true,
+    "PLUGIN_ERRORS": []
+  },
+  "REPAIR_ATTEMPTS": {
+    "CANONICAL_MODELS_SET": "EXECUTED_NO_RESOLUTION",
+    "DOCTOR_FIX": "NOT_PERFORMED",
+    "PLUGIN_REGISTRY_REFRESH": "EXECUTED_NO_RESOLUTION",
+    "PLUGIN_REINSTALL": "NOT_PERFORMED",
+    "REGISTRY_CHANGED": true
+  },
+  "UPSTREAM_CORRELATION": {
+    "EXACT_2026_9_5_DUPLICATE_FOUND": false,
+    "RELATED_FIX_COMMIT": "98e5590a999ddded4d6c9534234075e47616500f",
+    "RELATED_FIX_INCLUDED_IN_2026_9_5": true,
+    "RELATED_ISSUE": 140393
+  }
+}
