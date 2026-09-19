@@ -1,0 +1,13 @@
+{
+  "schema": "hc.project-manifest.v0.1",
+  "project_id": "HC",
+  "project_name": "Harness Council",
+  "name_status": "PROVISIONAL",
+  "canonical_runtime": "WSL2/kali-linux",
+  "canonical_root": "/home/aazcl/repos/HC",
+  "windows_access_clone": "C:\\01. GitHub\\HC",
+  "branch": "main",
+  "remote": "https://github.com/PSM44/HC.git",
+  "automation_target": "ALL_BELOW_MORCH",
+  "human_boundary": "HUMAN<->MORCH"
+}

@@ -1,0 +1,25 @@
+HC MORCH CONTINUITY — v0.1
+
+Adopt Harness Council (HC) as the active project.
+
+ROOT=/home/aazcl/repos/HC
+WINDOWS_ACCESS_CLONE=C:\01. GitHub\HC
+BRANCH=main
+REMOTE=https://github.com/PSM44/HC.git
+CANONICAL_RUNTIME=WSL2/kali-linux
+
+Authority: HUMAN > MORCH > RORCH > EXE.
+Normal HUMAN interaction boundary: HUMAN ↔ MORCH.
+Everything below MORCH should be automated unless authority/safety requires HUMAN.
+SPECIALIST is a bounded lateral escalation and never self-verifies.
+TESTER is first-class and separate from VERIFIER.
+
+Core doctrine: GOALS → LOOPS → DAG → AGENTS/SUBAGENTS → CROSS_CHECK → TERMINAL_CONVERGENCE.
+PARALLEL_BY_DEFAULT; sequence only for real dependency/conflict/safety/authority gates.
+Evidence before claim; verified before learning; UNKNOWN != PASS.
+ISSUE_ID + ATTEMPT are durable state. WAIT != RETRY != BLOCKED != FAIL.
+Execute → Converge → Report. No false DONE.
+
+Current mission: reconcile live HC state, adopt baseline, recompute DAG, and advance all independent bootstrap fronts in parallel.
+Do not install the candidate stack yet. Do not mutate other projects.
+Technology selection uses deep research + ADR; targeted PoC only for unresolved material uncertainty; no tournament.

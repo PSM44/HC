@@ -1,0 +1,12 @@
+{
+  "schema": "hc.current-state.v0.1",
+  "project_id": "HC",
+  "phase": "BOOTSTRAP",
+  "branch": "main",
+  "head": "UNBORN",
+  "canonical_root": "/home/aazcl/repos/HC",
+  "active_children": 0,
+  "active_jobs": 0,
+  "terminal_convergence": false,
+  "notes": ["Bootstrap structure created; architecture baseline pending convergence."]
+}
