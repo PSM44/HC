@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hc:schema:specialist-report:v0.1",
+  "title": "HC SpecialistReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "escalation_id",
+    "task_id",
+    "work_unit_id",
+    "issue_id",
+    "attempt_id",
+    "specialist_id",
+    "status",
+    "findings",
+    "result",
+    "assumptions",
+    "uncertainties",
+    "evidence_refs",
+    "mutations",
+    "blockers",
+    "terminal"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "hc.specialist-report.v0.1"
+    },
+    "escalation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "work_unit_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "specialist_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "SOLVED",
+        "PARTIAL",
+        "BLOCKED",
+        "FAILED",
+        "SCOPE_EXPANSION_REQUIRED",
+        "BUDGET_EXHAUSTED"
+      ]
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "result": {
+      "type": ["string", "null"]
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "mutations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "resource",
+          "scope"
+        ],
+        "properties": {
+          "resource": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "scope_expansion_request": {
+      "type": ["string", "null"]
+    },
+    "terminal": {
+      "type": "boolean"
+    }
+  }
+}

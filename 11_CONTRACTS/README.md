@@ -36,14 +36,25 @@ Status:
 
 `CANONICALIZED`
 
-## Pending contract families
+### Front G — Specialist Escalation
 
-- SolverResult
-- SpecialistProblemPack / SpecialistReport
+Normative contract:
+
+- `HC.SPECIALIST_ESCALATION_CONTRACT.md`
+
+Schemas:
+
+- `schemas/specialist-problem-pack.schema.json`
+- `schemas/specialist-report.schema.json`
+
+Status:
+
+`CANONICALIZED`
+
+## Pending cross-cutting contract families
+
 - LearningEvent
 - TraceContext
 - Error/Failure classification
-
-Specialist escalation is owned by Front G.
 
 Parallel DAG/resource-conflict semantics are owned by Front H.
