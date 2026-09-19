@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hc:schema:task-envelope:v0.1",
+  "title": "HC TaskEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "task_id",
+    "issue_id",
+    "attempt_id",
+    "objective",
+    "authority_chain",
+    "work_unit_ids",
+    "required_terminal_states",
+    "final_return_contract",
+    "canonical_state_persistence_required"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "hc.task-envelope.v0.1"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parent_task_id": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_chain": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "HUMAN",
+          "MORCH",
+          "RORCH",
+          "EXECUTOR",
+          "SPECIALIST",
+          "TESTER",
+          "VERIFIER"
+        ]
+      }
+    },
+    "work_unit_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required_terminal_states": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "PASS",
+          "BLOCKED",
+          "FAILED",
+          "CANCELLED",
+          "SUPERSEDED"
+        ]
+      }
+    },
+    "final_return_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "single_final_envelope",
+        "delta_only",
+        "terminal_convergence_required"
+      ],
+      "properties": {
+        "format": {
+          "const": "HC_MACHINE_ENVELOPE"
+        },
+        "single_final_envelope": {
+          "const": true
+        },
+        "delta_only": {
+          "const": true
+        },
+        "terminal_convergence_required": {
+          "const": true
+        }
+      }
+    },
+    "canonical_state_persistence_required": {
+      "type": "boolean"
+    }
+  }
+}

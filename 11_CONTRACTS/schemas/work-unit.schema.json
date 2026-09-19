@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hc:schema:work-unit:v0.1",
+  "title": "HC WorkUnit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "work_unit_id",
+    "task_id",
+    "issue_id",
+    "attempt_id",
+    "delegation_version",
+    "delegated_by_role",
+    "assigned_role",
+    "objective",
+    "dependencies",
+    "resource_claims",
+    "permissions",
+    "mutation_scope",
+    "acceptance_criteria",
+    "evidence_requirements",
+    "retry_policy",
+    "terminal_return_contract"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "hc.work-unit.v0.1"
+    },
+    "work_unit_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "delegation_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "delegated_by_role": {
+      "enum": [
+        "HUMAN",
+        "MORCH",
+        "RORCH"
+      ]
+    },
+    "assigned_role": {
+      "enum": [
+        "RORCH",
+        "EXECUTOR",
+        "SPECIALIST",
+        "TESTER",
+        "VERIFIER"
+      ]
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dependencies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "resource_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "resource_id",
+          "access"
+        ],
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "access": {
+            "enum": [
+              "READ",
+              "WRITE",
+              "EXCLUSIVE"
+            ]
+          },
+          "scope": {
+            "type": ["string", "null"]
+          }
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "filesystem_read",
+        "filesystem_write",
+        "process_execution",
+        "network_access",
+        "credential_use",
+        "canonical_mutation",
+        "external_publication"
+      ],
+      "properties": {
+        "filesystem_read": {
+          "type": "boolean"
+        },
+        "filesystem_write": {
+          "type": "boolean"
+        },
+        "process_execution": {
+          "type": "boolean"
+        },
+        "network_access": {
+          "type": "boolean"
+        },
+        "credential_use": {
+          "type": "boolean"
+        },
+        "canonical_mutation": {
+          "type": "boolean"
+        },
+        "external_publication": {
+          "type": "boolean"
+        }
+      }
+    },
+    "mutation_scope": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "criterion_id",
+          "statement",
+          "verification_required"
+        ],
+        "properties": {
+          "criterion_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "verification_required": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "evidence_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "type",
+          "persist",
+          "sensitivity"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "producer_role": {
+            "enum": [
+              "EXECUTOR",
+              "SPECIALIST",
+              "TESTER",
+              "VERIFIER"
+            ]
+          },
+          "persist": {
+            "type": "boolean"
+          },
+          "sensitivity": {
+            "enum": [
+              "PUBLIC",
+              "INTERNAL",
+              "SENSITIVE",
+              "SECRET"
+            ]
+          }
+        }
+      }
+    },
+    "retry_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_attempts",
+        "retryable_failure_classes",
+        "backoff",
+        "idempotency_required",
+        "checkpoint_rule",
+        "escalation_after_attempt"
+      ],
+      "properties": {
+        "max_attempts": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retryable_failure_classes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "backoff": {
+          "enum": [
+            "NONE",
+            "FIXED",
+            "EXPONENTIAL",
+            "EXTERNAL_CONDITION"
+          ]
+        },
+        "idempotency_required": {
+          "type": "boolean"
+        },
+        "checkpoint_rule": {
+          "enum": [
+            "NONE",
+            "RESUME_SAME_ATTEMPT",
+            "NEW_ATTEMPT_FROM_CHECKPOINT"
+          ]
+        },
+        "escalation_after_attempt": {
+          "type": ["integer", "null"],
+          "minimum": 1
+        }
+      }
+    },
+    "terminal_return_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "delta_only",
+        "evidence_refs_required",
+        "terminal_convergence_required"
+      ],
+      "properties": {
+        "delta_only": {
+          "const": true
+        },
+        "evidence_refs_required": {
+          "type": "boolean"
+        },
+        "terminal_convergence_required": {
+          "const": true
+        }
+      }
+    }
+  }
+}

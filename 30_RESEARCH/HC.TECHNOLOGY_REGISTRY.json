@@ -1,0 +1,212 @@
+{
+  "schema": "hc.technology-registry.v0.1",
+  "project_id": "HC",
+  "lifecycle_states": [
+    "CANDIDATE",
+    "RESEARCHED",
+    "SELECTED_FOR_POC",
+    "IMPLEMENTED",
+    "VERIFIED",
+    "ACTIVE_OWNER",
+    "REJECTED",
+    "DEFERRED",
+    "SUPERSEDED",
+    "RETIRED"
+  ],
+  "verification_statuses": [
+    "NOT_EVALUATED",
+    "RESEARCHED_ONLY",
+    "POC_PENDING",
+    "PARTIAL_VERIFIED",
+    "VERIFIED",
+    "BLOCKED"
+  ],
+  "ownership_rule": "ACTIVE_OWNER_REQUIRES_EXPLICIT_ARCHITECTURAL_DECISION",
+  "entries": [
+    {
+      "technology_id": "OPENCLAW",
+      "name": "OpenClaw",
+      "category": "agent_runtime_harness",
+      "lifecycle_state": "IMPLEMENTED",
+      "verification_status": "PARTIAL_VERIFIED",
+      "active_owner": false,
+      "selected_version": "2026.9.5",
+      "adapter_boundary": "60_TOOLS/openclaw_adapter",
+      "evidence": [
+        "52_EVIDENCE/HC-E05/OPENCLAW_PREPARED_RUNTIME_REPRO.json",
+        "52_EVIDENCE/HC-E05/OPENCLAW_PREPARED_RUNTIME_REPRO.md"
+      ],
+      "blockers": [
+        "REAL_MODEL_EXECUTION_BLOCKED_BY_UPSTREAM_PREPARED_RUNTIME_PLUGIN_GENERATION_DEFECT_CANDIDATE"
+      ],
+      "watch": true
+    },
+    {
+      "technology_id": "HERMES",
+      "name": "Hermes",
+      "category": "learning_skills_specialist",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "DSH",
+      "name": "DeepSeek Harness",
+      "category": "execution_runtime",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "OPENHANDS",
+      "name": "OpenHands",
+      "category": "execution_runtime",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "TEMPORAL",
+      "name": "Temporal",
+      "category": "durable_workflow",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "MICROSOFT_AGENT_FRAMEWORK",
+      "name": "Microsoft Agent Framework",
+      "category": "agent_workflow_framework",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "OPENVIKING",
+      "name": "OpenViking",
+      "category": "context_memory",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "EVEROS",
+      "name": "EverOS",
+      "category": "context_memory",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "OMNIROUTE",
+      "name": "OmniRoute",
+      "category": "model_gateway",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "ECC",
+      "name": "ECC",
+      "category": "policy_skills",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "GRAPHIFY",
+      "name": "Graphify",
+      "category": "code_intelligence",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "OPENTELEMETRY",
+      "name": "OpenTelemetry",
+      "category": "observability_standard",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [
+        "BACKEND_NOT_SELECTED"
+      ],
+      "watch": true
+    },
+    {
+      "technology_id": "ARCHIFY",
+      "name": "Archify",
+      "category": "architecture_specialist",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "DIAGRAM_DESIGN",
+      "name": "diagram-design",
+      "category": "diagram_specialist",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "OPENPENCIL",
+      "name": "OpenPencil",
+      "category": "design_specialist",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    },
+    {
+      "technology_id": "PONYTAIL",
+      "name": "Ponytail",
+      "category": "design_specialist",
+      "lifecycle_state": "CANDIDATE",
+      "verification_status": "NOT_EVALUATED",
+      "active_owner": false,
+      "evidence": [],
+      "blockers": [],
+      "watch": true
+    }
+  ]
+}
