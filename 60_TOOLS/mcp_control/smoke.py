@@ -3,11 +3,11 @@ from __future__ import annotations
 import asyncio
 import json
 from pathlib import Path
-from typing import Any
 
 from mcp import Client, StdioServerParameters
 
 ROOT = Path("/home/aazcl/repos/HC")
+SERVER = ROOT / "60_TOOLS" / "mcp_control" / "server.py"
 
 EXPECTED_TOOLS = {
     "hc_get_project_state",
@@ -16,56 +16,44 @@ EXPECTED_TOOLS = {
 }
 
 
-def emit_ai_envelope(payload: dict[str, Any]) -> None:
-    print("---AI_START---")
-    print(json.dumps(payload, sort_keys=True, separators=(",", ":")))
-    print("---AI_END---")
-
-
-async def main() -> None:
-    server = StdioServerParameters(
+def server_parameters() -> StdioServerParameters:
+    return StdioServerParameters(
         command="uv",
-        args=[
-            "run",
-            "python",
-            str(ROOT / "60_TOOLS" / "mcp_control" / "server.py"),
-        ],
+        args=["run", "python", str(SERVER)],
         cwd=ROOT,
     )
 
-    protocol_version: str | None = None
-    observed_tools: list[str] = []
 
-    async with Client(server) as client:
-        tools_result = await client.list_tools()
-        tools = {tool.name for tool in tools_result.tools}
-
-        protocol_version = str(client.protocol_version)
-        observed_tools = sorted(tools)
+async def run_tests() -> dict[str, object]:
+    async with Client(server_parameters()) as client:
+        listing = await client.list_tools()
+        tools = {tool.name for tool in listing.tools}
 
         if tools != EXPECTED_TOOLS:
             raise RuntimeError(
-                f"Unexpected MCP tool set: expected={EXPECTED_TOOLS}, observed={tools}"
+                f"Unexpected MCP tool set: "
+                f"expected={EXPECTED_TOOLS}, observed={tools}"
             )
 
         state = await client.call_tool("hc_get_project_state", {})
-        if state.is_error:
-            raise RuntimeError("hc_get_project_state returned error")
+        if state.is_error or not state.structured_content:
+            raise RuntimeError("hc_get_project_state failed")
 
-        state_payload = state.structured_content
-        if not state_payload:
-            raise RuntimeError("hc_get_project_state returned no structured content")
+        payload = state.structured_content
 
-        if state_payload.get("project_id") != "HC":
+        if payload.get("project_id") != "HC":
             raise RuntimeError("Unexpected project_id")
 
-        if state_payload.get("branch_observed") != "main":
+        if payload.get("branch_observed") != "main":
             raise RuntimeError("Unexpected branch")
 
-        if state_payload.get("mutation_performed") is not False:
+        if payload.get("mutation_performed") is not False:
             raise RuntimeError("Mutation invariant violated")
 
-        capabilities = await client.call_tool("hc_get_capabilities", {})
+        capabilities = await client.call_tool(
+            "hc_get_capabilities",
+            {},
+        )
         if capabilities.is_error or not capabilities.structured_content:
             raise RuntimeError("hc_get_capabilities failed")
 
@@ -73,12 +61,10 @@ async def main() -> None:
         if dag.is_error or not dag.structured_content:
             raise RuntimeError("hc_get_dag failed")
 
-    emit_ai_envelope(
-        {
-            "TASK_ID": "HC-E03-PHASE1",
+        return {
+            "TEST_ID": "HC-E03-POSITIVE",
             "STATUS": "PASS",
-            "PROTOCOL": protocol_version,
-            "TOOLS": observed_tools,
+            "PROTOCOL": str(client.protocol_version),
             "CHECKS": {
                 "DISCOVERY": "PASS",
                 "PROJECT_STATE": "PASS",
@@ -88,7 +74,11 @@ async def main() -> None:
             },
             "MUTATION_PERFORMED": False,
         }
-    )
+
+
+async def main() -> None:
+    result = await run_tests()
+    print(json.dumps(result, sort_keys=True, separators=(",", ":")))
 
 
 asyncio.run(main())

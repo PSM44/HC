@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import json
 import subprocess
-import sys
 from pathlib import Path
 from typing import Any
 
@@ -29,26 +28,10 @@ def git_status() -> str:
     return result.stdout
 
 
-def emit_ai_envelope(payload: dict[str, Any]) -> None:
-    print("---AI_START---")
-    print(
-        json.dumps(
-            payload,
-            sort_keys=True,
-            separators=(",", ":"),
-        )
-    )
-    print("---AI_END---")
-
-
 def server_parameters() -> StdioServerParameters:
     return StdioServerParameters(
         command="uv",
-        args=[
-            "run",
-            "python",
-            str(SERVER),
-        ],
+        args=["run", "python", str(SERVER)],
         cwd=ROOT,
     )
 
@@ -56,7 +39,6 @@ def server_parameters() -> StdioServerParameters:
 async def schema_test() -> tuple[bool, str]:
     async with Client(server_parameters()) as client:
         listing = await client.list_tools()
-
         observed = {tool.name for tool in listing.tools}
 
         if observed != EXPECTED_TOOLS:
@@ -69,9 +51,9 @@ async def schema_test() -> tuple[bool, str]:
                 return False, f"{tool.name}:TYPE_NOT_OBJECT"
 
             if schema.get("additionalProperties") is not False:
-                return False, (
-                    f"{tool.name}:"
-                    "ADDITIONAL_PROPERTIES_NOT_FALSE"
+                return (
+                    False,
+                    f"{tool.name}:ADDITIONAL_PROPERTIES_NOT_FALSE",
                 )
 
         return True, "STRICT_EMPTY_OBJECT_SCHEMA"
@@ -113,21 +95,19 @@ async def expected_failure(
         return True, f"EXCEPTION:{type(exc).__name__}"
 
 
-async def run_tests() -> dict[str, Any]:
+async def run_tests() -> dict[str, object]:
     repo_before = git_status()
 
     checks: dict[str, str] = {}
     error_modes: dict[str, str] = {}
 
     schema_ok, schema_mode = await schema_test()
-
     if not schema_ok:
         raise RuntimeError(schema_mode)
 
     checks["STRICT_INPUT_SCHEMA"] = "PASS"
 
     valid_ok, valid_mode = await valid_tool_test()
-
     if not valid_ok:
         raise RuntimeError(valid_mode)
 
@@ -137,22 +117,16 @@ async def run_tests() -> dict[str, Any]:
         "hc_tool_that_does_not_exist",
         {},
     )
-
     if not unknown_ok:
-        raise RuntimeError(
-            "Unknown MCP tool did not fail closed"
-        )
+        raise RuntimeError("Unknown MCP tool did not fail closed")
 
     checks["UNKNOWN_TOOL"] = "PASS"
     error_modes["UNKNOWN_TOOL"] = unknown_mode
 
     invalid_ok, invalid_mode = await expected_failure(
         "hc_get_capabilities",
-        {
-            "unexpected_argument": "must_fail",
-        },
+        {"unexpected_argument": "must_fail"},
     )
-
     if not invalid_ok:
         raise RuntimeError(
             "Invalid MCP arguments did not fail closed"
@@ -171,32 +145,17 @@ async def run_tests() -> dict[str, Any]:
     checks["NO_CANONICAL_MUTATION"] = "PASS"
 
     return {
-        "TASK_ID": "HC-E04",
+        "TEST_ID": "HC-E04-NEGATIVE",
         "STATUS": "PASS",
         "CHECKS": checks,
         "ERROR_MODES": error_modes,
         "MUTATION_PERFORMED": False,
-        "TERMINAL_CONVERGENCE": True,
     }
 
 
 async def main() -> None:
-    try:
-        payload = await run_tests()
-        emit_ai_envelope(payload)
-
-    except Exception as exc:
-        emit_ai_envelope(
-            {
-                "TASK_ID": "HC-E04",
-                "STATUS": "FAIL",
-                "ERROR_CLASS": type(exc).__name__,
-                "ERROR": str(exc),
-                "MUTATION_PERFORMED": False,
-                "TERMINAL_CONVERGENCE": False,
-            }
-        )
-        sys.exit(1)
+    result = await run_tests()
+    print(json.dumps(result, sort_keys=True, separators=(",", ":")))
 
 
 asyncio.run(main())
