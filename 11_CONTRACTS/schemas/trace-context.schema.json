@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hc:schema:trace-context:v0.1",
+  "title": "HC TraceContext",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "trace_id",
+    "task_id",
+    "issue_id",
+    "attempt_id"
+  ],
+  "properties": {
+    "trace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parent_trace_id": {
+      "type": ["string", "null"]
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "work_unit_id": {
+      "type": ["string", "null"]
+    },
+    "issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actor_role": {
+      "enum": [
+        "HUMAN",
+        "MORCH",
+        "RORCH",
+        "EXECUTOR",
+        "SPECIALIST",
+        "TESTER",
+        "VERIFIER"
+      ]
+    }
+  }
+}

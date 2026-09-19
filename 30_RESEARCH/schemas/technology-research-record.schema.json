@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hc:schema:technology-research-record:v0.1",
+  "title": "HC TechnologyResearchRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "technology_id",
+    "capability_need",
+    "sources",
+    "requirements",
+    "findings",
+    "material_uncertainties",
+    "recommended_next_action"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "technology_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capability_need": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "material_uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "recommended_next_action": {
+      "enum": [
+        "RESEARCH_MORE",
+        "WRITE_ADR",
+        "SELECT_FOR_POC",
+        "DEFER",
+        "REJECT"
+      ]
+    }
+  }
+}

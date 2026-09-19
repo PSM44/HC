@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hc:schema:runtime-bridge-request:v0.1",
+  "title": "HC RuntimeBridgeRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "task_id",
+    "issue_id",
+    "attempt_id",
+    "work_unit_id",
+    "canonical_root",
+    "expected_branch",
+    "expected_head",
+    "mutation_allowed",
+    "mutation_scope"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "work_unit_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_root": {
+      "const": "/home/aazcl/repos/HC"
+    },
+    "expected_branch": {
+      "const": "main"
+    },
+    "expected_head": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "mutation_allowed": {
+      "type": "boolean"
+    },
+    "mutation_scope": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

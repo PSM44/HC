@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hc:schema:failure-record:v0.1",
+  "title": "HC FailureRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "failure_id",
+    "issue_id",
+    "attempt_id",
+    "class",
+    "reason_code",
+    "retryability",
+    "source_role"
+  ],
+  "properties": {
+    "failure_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": ["string", "null"]
+    },
+    "work_unit_id": {
+      "type": ["string", "null"]
+    },
+    "class": {
+      "enum": [
+        "CONTRACT",
+        "AUTHORITY",
+        "DEPENDENCY",
+        "RESOURCE",
+        "RUNTIME",
+        "PROVIDER",
+        "NETWORK",
+        "TIMEOUT",
+        "TEST",
+        "VERIFICATION",
+        "STATE",
+        "SECURITY",
+        "EXTERNAL",
+        "UNKNOWN"
+      ]
+    },
+    "reason_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retryability": {
+      "enum": [
+        "RETRYABLE",
+        "NON_RETRYABLE",
+        "CONDITION_DEPENDENT",
+        "UNKNOWN"
+      ]
+    },
+    "source_role": {
+      "enum": [
+        "MORCH",
+        "RORCH",
+        "EXECUTOR",
+        "SPECIALIST",
+        "TESTER",
+        "VERIFIER"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
