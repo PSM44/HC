@@ -1,42 +1,23 @@
 # HC Architecture & Governance Baseline
 
-VERSION: v0.3-BOOTSTRAP
+VERSION: v0.4-BOOTSTRAP
 STATUS: PARTIAL_BASELINE_ACTIVE
 
-This file is the bootstrap architecture index. Detailed normative content lives
-in the canonical source documents referenced below.
+This file is the bootstrap architecture index.
 
 ## Canonicalized fronts
 
 ### A — North Star / Architecture Intent
-
-Source:
-
 `10_ARCHITECTURE/HC.NORTH_STAR.md`
-
-Status:
-
-`CANONICALIZED`
+Status: `CANONICALIZED`
 
 ### B — Capability Map
-
-Source:
-
 `10_ARCHITECTURE/HC.CAPABILITY_MAP.md`
-
-Status:
-
-`CANONICALIZED`
+Status: `CANONICALIZED`
 
 ### C — Role / Authority Model
-
-Source:
-
 `10_ARCHITECTURE/HC.ROLE_AUTHORITY_MODEL.md`
-
-Status:
-
-`CANONICALIZED`
+Status: `CANONICALIZED`
 
 ### D — Task / Work Unit Contracts
 
@@ -46,42 +27,51 @@ Sources:
 - `11_CONTRACTS/schemas/task-envelope.schema.json`
 - `11_CONTRACTS/schemas/work-unit.schema.json`
 
-Covers:
+Status: `CANONICALIZED`
 
-- TaskEnvelope
-- WorkUnit
-- bounded authority
-- immutable delegation
-- permissions
-- mutation scope
-- acceptance criteria
-- evidence requirements
-- retry policy
-- terminal return
+### E — Tester / Verifier / Evidence
 
-Status:
+Sources:
 
-`CANONICALIZED`
+- `11_CONTRACTS/HC.TESTER_VERIFIER_EVIDENCE_CONTRACT.md`
+- `11_CONTRACTS/schemas/test-evidence.schema.json`
+- `11_CONTRACTS/schemas/verification-result.schema.json`
+
+Key invariants:
+
+- Tester produces observations/evidence.
+- Verifier evaluates declared criteria and invariants.
+- UNKNOWN is not PASS.
+- Contradictory evidence prevents PASS.
+- Verification cannot silently repair implementation.
+
+Status: `CANONICALIZED`
 
 ### F — Issue / Attempt State Model
-
-Source:
-
 `12_STATE/HC.ISSUE_ATTEMPT_STATE_MODEL.md`
+Status: `CANONICALIZED`
 
-Status:
+### H — Parallel DAG / Resource Ownership
 
-`CANONICALIZED`
+Sources:
+
+- `10_ARCHITECTURE/HC.PARALLEL_DAG_RESOURCE_OWNERSHIP.md`
+- `11_CONTRACTS/schemas/resource-claim.schema.json`
+
+Key invariants:
+
+- parallel by default;
+- READ/READ compatible;
+- WRITE and EXCLUSIVE conflict by default;
+- unknown scope overlap is conflict;
+- one active canonical writer;
+- superseded/stale work loses mutation authority.
+
+Status: `CANONICALIZED`
 
 ### I — Technology Selection Framework
-
-Source:
-
 `30_RESEARCH/HC.TECHNOLOGY_SELECTION_FRAMEWORK.md`
-
-Status:
-
-`CANONICALIZED`
+Status: `CANONICALIZED`
 
 ### J — Technology Registry / Watch
 
@@ -90,86 +80,35 @@ Sources:
 - `30_RESEARCH/HC.TECHNOLOGY_REGISTRY.json`
 - `30_RESEARCH/technology-watch/HC.TECHNOLOGY_WATCH_POLICY.md`
 
-Covers:
-
-- technology lifecycle
-- verification status
-- ownership separation
-- candidate registry
-- Technology Watch
-- reassessment triggers
-
-Status:
-
-`CANONICALIZED`
+Status: `CANONICALIZED`
 
 ### K — Runtime / Repository Boundary
-
-Source:
-
 `10_ARCHITECTURE/HC.RUNTIME_REPO_BOUNDARY.md`
+Status: `CANONICALIZED`
 
-Status:
+## Eligible front
 
-`CANONICALIZED`
-
-## Eligible fronts
-
-### E — Tester / Verifier / Evidence Contract
-
-Status:
-
-`ELIGIBLE`
-
-Dependencies satisfied by C + D.
-
-### H — Parallel DAG / Resource Ownership
+### G — Specialist Escalation
 
 Status:
 
 `ELIGIBLE`
 
-Dependencies satisfied by C + D + F.
+Dependencies D and E are canonical.
 
-## Blocked front
+G must preserve ISSUE_ID and ATTEMPT, remain lateral rather than supervisory,
+and return through the evidence/verification path.
 
-### G — Specialist Escalation Contract
+## Current frontier
 
-Status:
-
-`BLOCKED_BY_E`
-
-D is already satisfied. E remains outstanding.
-
-## Current parallel frontier
-
-The next architecture iteration should advance:
-
-`E + H`
-
-in parallel.
-
-After E converges, G becomes eligible.
-
-## Technology lifecycle rule
-
-Lifecycle state and verification status are separate axes.
-
-For OpenClaw HC-E05:
-
-- lifecycle state: `IMPLEMENTED`
-- verification status: `PARTIAL_VERIFIED`
-- active owner: `false`
-
-`PARTIAL_VERIFIED` is not a lifecycle state.
+`G_SPECIALIST_ESCALATION`
 
 ## HEAD authority
 
-Git is authoritative for the live repository HEAD.
+Git is authoritative for live HEAD.
 
-Canonical project files use:
+Canonical files use:
 
 `HEAD_POLICY=RESOLVE_LIVE_FROM_GIT`
 
-and record only a previously reconciled parent SHA for provenance rather than
-attempting to embed their own commit SHA.
+and retain the last reconciled parent SHA only for provenance.

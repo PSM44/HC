@@ -1,4 +1,4 @@
-HC MORCH CONTINUITY — v0.3
+HC MORCH CONTINUITY — v0.4
 
 PROJECT=Harness Council
 PROJECT_ID=HC
@@ -10,7 +10,7 @@ REMOTE=https://github.com/PSM44/HC.git
 CANONICAL_RUNTIME=WSL2/kali-linux
 
 HEAD_POLICY=RESOLVE_LIVE_FROM_GIT
-LAST_RECONCILED_PARENT_HEAD=feaf089685d42e1c13c1806fa703123a02bb7d03
+LAST_RECONCILED_PARENT_HEAD=56f7b01b985c566a474df9055813396ae9b76290
 
 Authority:
 HUMAN > MORCH > RORCH > EXECUTOR
@@ -29,38 +29,40 @@ Operating invariants:
 - UNKNOWN != PASS.
 - WAIT != RETRY != BLOCKED != FAIL.
 - No false DONE.
+- Tester produces evidence; Verifier evaluates it.
 - Canonical conflicting writers are prohibited.
+- Unknown resource overlap is treated as conflict.
 - Technology implementation never changes role authority.
-- Technology lifecycle and verification status are distinct.
 
 Canonical bootstrap fronts:
 - A Architecture/North Star: CANONICALIZED
 - B Capability Map: CANONICALIZED
 - C Role/Authority: CANONICALIZED
 - D Task/Work Unit Contracts: CANONICALIZED
+- E Tester/Verifier/Evidence: CANONICALIZED
 - F Issue/Attempt State: CANONICALIZED
+- H Parallel DAG/Resource Ownership: CANONICALIZED
 - I Technology Selection: CANONICALIZED
 - J Technology Registry/Watch: CANONICALIZED
 - K Runtime/Repo Boundary: CANONICALIZED
 
-Next eligible fronts:
-- E Tester / Verifier / Evidence
-- H Parallel DAG / Resource Ownership
+Next eligible front:
+- G Specialist Escalation
 
-Dependency state:
-- G Specialist Escalation: BLOCKED_BY_E
+G dependencies:
+- D satisfied
+- E satisfied
 
 OpenClaw HC-E05:
 - lifecycle_state=IMPLEMENTED
 - verification_status=PARTIAL_VERIFIED
 - ACTIVE_OWNER=NO
 - real model execution blocked by upstream prepared-runtime/plugin-generation defect candidate
-- canonical evidence exists under 52_EVIDENCE/HC-E05
 - local repair churn stopped
-- upstream publication remains HUMAN-gated
 
 Runtime bridge:
 HC-BOOTSTRAP-RUNTIME-BRIDGE-001 remains OPEN_DEFERRED.
 
 Current mission:
-Advance E and H concurrently. Once E converges, recompute G eligibility.
+Materialize G Specialist Escalation as a bounded lateral path preserving ISSUE_ID
+and ATTEMPT, returning through Tester/Evidence/Verifier rather than self-verifying.

@@ -1,11 +1,11 @@
 {
-  "schema": "hc.current-state.v0.3",
+  "schema": "hc.current-state.v0.4",
   "project_id": "HC",
   "project_name": "Harness Council",
   "phase": "BOOTSTRAP",
   "branch": "main",
   "head_policy": "RESOLVE_LIVE_FROM_GIT",
-  "last_reconciled_parent_head": "feaf089685d42e1c13c1806fa703123a02bb7d03",
+  "last_reconciled_parent_head": "56f7b01b985c566a474df9055813396ae9b76290",
   "canonical_root": "/home/aazcl/repos/HC",
   "canonical_runtime": "WSL2/kali-linux",
   "active_children": 0,
@@ -16,10 +16,10 @@
     "B_CAPABILITY_MAP": "CANONICALIZED",
     "C_ROLE_AUTHORITY_MODEL": "CANONICALIZED",
     "D_TASK_WORK_UNIT_CONTRACTS": "CANONICALIZED",
-    "E_TESTER_VERIFIER_EVIDENCE": "ELIGIBLE",
+    "E_TESTER_VERIFIER_EVIDENCE": "CANONICALIZED",
     "F_ISSUE_ATTEMPT_STATE_MODEL": "CANONICALIZED",
-    "G_SPECIALIST_ESCALATION": "BLOCKED_BY_E",
-    "H_PARALLEL_DAG_RESOURCE_OWNERSHIP": "ELIGIBLE",
+    "G_SPECIALIST_ESCALATION": "ELIGIBLE",
+    "H_PARALLEL_DAG_RESOURCE_OWNERSHIP": "CANONICALIZED",
     "I_TECHNOLOGY_SELECTION_FRAMEWORK": "CANONICALIZED",
     "J_TECHNOLOGY_REGISTRY_WATCH": "CANONICALIZED",
     "K_RUNTIME_REPO_BOUNDARY": "CANONICALIZED"
@@ -42,15 +42,14 @@
     "HC_BOOTSTRAP_RUNTIME_BRIDGE_001": "OPEN_DEFERRED"
   },
   "next_parallel_fronts": [
-    "E_TESTER_VERIFIER_EVIDENCE",
-    "H_PARALLEL_DAG_RESOURCE_OWNERSHIP"
+    "G_SPECIALIST_ESCALATION"
   ],
   "notes": [
-    "A/B/C/D/F/I/J/K bootstrap fronts are canonical.",
-    "E and H are independently eligible and should advance in parallel.",
-    "G becomes eligible after E converges.",
-    "Git is authoritative for live HEAD; canonical files do not embed their own commit SHA.",
-    "Technology lifecycle and verification status are distinct.",
-    "OpenClaw is IMPLEMENTED + PARTIAL_VERIFIED and is not an ACTIVE_OWNER."
+    "A/B/C/D/E/F/H/I/J/K bootstrap fronts are canonical.",
+    "G Specialist Escalation is now eligible because D and E are canonical.",
+    "Tester, Verifier and Evidence are separate concerns.",
+    "Parallel DAG/resource ownership uses explicit READ/WRITE/EXCLUSIVE claims and single-writer semantics.",
+    "Git is authoritative for live HEAD.",
+    "OpenClaw remains IMPLEMENTED + PARTIAL_VERIFIED and is not an ACTIVE_OWNER."
   ]
 }
