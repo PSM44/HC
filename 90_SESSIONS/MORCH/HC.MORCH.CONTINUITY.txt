@@ -1,68 +1,53 @@
-HC MORCH CONTINUITY — v0.4
+HC MORCH CONTINUITY — v0.5
 
 PROJECT=Harness Council
 PROJECT_ID=HC
 
 ROOT=/home/aazcl/repos/HC
-WINDOWS_ACCESS_CLONE=C:\01. GitHub\HC
 BRANCH=main
 REMOTE=https://github.com/PSM44/HC.git
 CANONICAL_RUNTIME=WSL2/kali-linux
 
 HEAD_POLICY=RESOLVE_LIVE_FROM_GIT
-LAST_RECONCILED_PARENT_HEAD=56f7b01b985c566a474df9055813396ae9b76290
+LAST_RECONCILED_PARENT_HEAD=b8ddaf560d8ab3d8707edeb1ed5cb944933b9632
+
+PHASE=IMPLEMENTATION
+STRUCTURAL_BOOTSTRAP=CANONICALIZED
+NORTH_STAR_STATUS=NOT_YET_PROVEN
+TERMINAL_CONVERGENCE=FALSE
 
 Authority:
 HUMAN > MORCH > RORCH > EXECUTOR
 
-Normal human boundary:
-HUMAN ↔ MORCH
-
 Core doctrine:
 GOALS → LOOPS → GRAPH/DAG → AGENTS/SUBAGENTS → CROSS_CHECK → TERMINAL_CONVERGENCE
 
-Operating invariants:
-- PARALLEL_BY_DEFAULT.
-- Sequence only on dependency, resource conflict, authority or safety.
-- EVIDENCE_BEFORE_CLAIM.
-- VERIFIED_BEFORE_LEARNING.
-- UNKNOWN != PASS.
-- WAIT != RETRY != BLOCKED != FAIL.
-- No false DONE.
-- Tester produces evidence; Verifier evaluates it.
-- Canonical conflicting writers are prohibited.
-- Unknown resource overlap is treated as conflict.
-- Technology implementation never changes role authority.
+Structural bootstrap:
+A/B/C/D/E/F/G/H/I/J/K = CANONICALIZED
 
-Canonical bootstrap fronts:
-- A Architecture/North Star: CANONICALIZED
-- B Capability Map: CANONICALIZED
-- C Role/Authority: CANONICALIZED
-- D Task/Work Unit Contracts: CANONICALIZED
-- E Tester/Verifier/Evidence: CANONICALIZED
-- F Issue/Attempt State: CANONICALIZED
-- H Parallel DAG/Resource Ownership: CANONICALIZED
-- I Technology Selection: CANONICALIZED
-- J Technology Registry/Watch: CANONICALIZED
-- K Runtime/Repo Boundary: CANONICALIZED
+This is a structural milestone, not project completion.
 
-Next eligible front:
-- G Specialist Escalation
+Initial implementation frontier — run in parallel:
+- P1 Contract Enforcement Runtime
+- P2 State Transition Engine
+- P6 TraceContext + Failure Taxonomy
+- P8 MORCH → RORCH → WSL2 Runtime Bridge
+- P12 Technology Research / ADR Pipeline
 
-G dependencies:
-- D satisfied
-- E satisfied
+Downstream:
+- P3 depends P1
+- P4 depends P1
+- P5 depends P1 + P4
+- P7 depends P2 + P6
+- P9 depends P6
+- P10 depends P4 + P6
+- P11 depends on core implementation/runtime convergence
+- P13 depends P11
 
-OpenClaw HC-E05:
-- lifecycle_state=IMPLEMENTED
-- verification_status=PARTIAL_VERIFIED
-- ACTIVE_OWNER=NO
-- real model execution blocked by upstream prepared-runtime/plugin-generation defect candidate
-- local repair churn stopped
-
-Runtime bridge:
-HC-BOOTSTRAP-RUNTIME-BRIDGE-001 remains OPEN_DEFERRED.
+OpenClaw:
+IMPLEMENTED + PARTIAL_VERIFIED + ACTIVE_OWNER=NO.
+It remains an isolated candidate with upstream runtime blocker evidence.
 
 Current mission:
-Materialize G Specialist Escalation as a bounded lateral path preserving ISSUE_ID
-and ATTEMPT, returning through Tester/Evidence/Verifier rather than self-verifying.
+Advance P1/P2/P6/P8/P12 concurrently, recomputing eligibility after each
+material convergence. Do not serialize independent fronts.

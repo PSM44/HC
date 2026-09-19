@@ -1,11 +1,13 @@
 {
-  "schema": "hc.current-state.v0.4",
+  "schema": "hc.current-state.v0.5",
   "project_id": "HC",
   "project_name": "Harness Council",
-  "phase": "BOOTSTRAP",
+  "phase": "IMPLEMENTATION",
+  "structural_bootstrap": "CANONICALIZED",
+  "north_star_status": "NOT_YET_PROVEN",
   "branch": "main",
   "head_policy": "RESOLVE_LIVE_FROM_GIT",
-  "last_reconciled_parent_head": "56f7b01b985c566a474df9055813396ae9b76290",
+  "last_reconciled_parent_head": "b8ddaf560d8ab3d8707edeb1ed5cb944933b9632",
   "canonical_root": "/home/aazcl/repos/HC",
   "canonical_runtime": "WSL2/kali-linux",
   "active_children": 0,
@@ -18,12 +20,34 @@
     "D_TASK_WORK_UNIT_CONTRACTS": "CANONICALIZED",
     "E_TESTER_VERIFIER_EVIDENCE": "CANONICALIZED",
     "F_ISSUE_ATTEMPT_STATE_MODEL": "CANONICALIZED",
-    "G_SPECIALIST_ESCALATION": "ELIGIBLE",
+    "G_SPECIALIST_ESCALATION": "CANONICALIZED",
     "H_PARALLEL_DAG_RESOURCE_OWNERSHIP": "CANONICALIZED",
     "I_TECHNOLOGY_SELECTION_FRAMEWORK": "CANONICALIZED",
     "J_TECHNOLOGY_REGISTRY_WATCH": "CANONICALIZED",
     "K_RUNTIME_REPO_BOUNDARY": "CANONICALIZED"
   },
+  "implementation_fronts": {
+    "P1_CONTRACT_ENFORCEMENT_RUNTIME": "ELIGIBLE",
+    "P2_STATE_TRANSITION_ENGINE": "ELIGIBLE",
+    "P3_RESOURCE_SCHEDULER": "BLOCKED_BY_P1",
+    "P4_TESTER_VERIFIER_EVIDENCE_RUNTIME": "BLOCKED_BY_P1",
+    "P5_SPECIALIST_RUNTIME_ROUTING": "BLOCKED_BY_P1_P4",
+    "P6_TRACE_FAILURE_CONTRACTS": "ELIGIBLE",
+    "P7_CHECKPOINT_RESUME_RECOVERY": "BLOCKED_BY_P2_P6",
+    "P8_MORCH_RORCH_RUNTIME_BRIDGE": "ELIGIBLE",
+    "P9_OBSERVABILITY": "BLOCKED_BY_P6",
+    "P10_VERIFIED_LEARNING": "BLOCKED_BY_P4_P6",
+    "P11_AUTONOMOUS_E2E_CHAIN": "BLOCKED",
+    "P12_TECHNOLOGY_RESEARCH_ADR_PIPELINE": "ELIGIBLE",
+    "P13_REGRESSION_TERMINAL_CONVERGENCE": "BLOCKED_BY_P11"
+  },
+  "next_parallel_fronts": [
+    "P1_CONTRACT_ENFORCEMENT_RUNTIME",
+    "P2_STATE_TRANSITION_ENGINE",
+    "P6_TRACE_FAILURE_CONTRACTS",
+    "P8_MORCH_RORCH_RUNTIME_BRIDGE",
+    "P12_TECHNOLOGY_RESEARCH_ADR_PIPELINE"
+  ],
   "candidate_pocs": {
     "OPENCLAW_HC_E05": {
       "lifecycle_state": "IMPLEMENTED",
@@ -39,17 +63,17 @@
     }
   },
   "control_plane_gaps": {
-    "HC_BOOTSTRAP_RUNTIME_BRIDGE_001": "OPEN_DEFERRED"
+    "HC_BOOTSTRAP_RUNTIME_BRIDGE_001": {
+      "status": "OPEN_DEFERRED",
+      "owner_front": "P8_MORCH_RORCH_RUNTIME_BRIDGE"
+    }
   },
-  "next_parallel_fronts": [
-    "G_SPECIALIST_ESCALATION"
-  ],
+  "roadmap": "04_BACKLOGS/HC.ROADMAP.ACTIVE.md",
   "notes": [
-    "A/B/C/D/E/F/H/I/J/K bootstrap fronts are canonical.",
-    "G Specialist Escalation is now eligible because D and E are canonical.",
-    "Tester, Verifier and Evidence are separate concerns.",
-    "Parallel DAG/resource ownership uses explicit READ/WRITE/EXCLUSIVE claims and single-writer semantics.",
-    "Git is authoritative for live HEAD.",
-    "OpenClaw remains IMPLEMENTED + PARTIAL_VERIFIED and is not an ACTIVE_OWNER."
+    "A-K structural bootstrap is canonical.",
+    "Structural completion is not operational completion.",
+    "Implementation proceeds by dependency-aware parallel DAG.",
+    "OpenClaw is not an active owner and is not a global blocker.",
+    "Git remains authoritative for live HEAD."
   ]
 }

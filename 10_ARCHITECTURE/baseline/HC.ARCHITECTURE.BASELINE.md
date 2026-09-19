@@ -1,107 +1,65 @@
 # HC Architecture & Governance Baseline
 
-VERSION: v0.4-BOOTSTRAP
-STATUS: PARTIAL_BASELINE_ACTIVE
+VERSION: v1.0-STRUCTURAL
+STATUS: STRUCTURAL_BASELINE_CANONICAL
 
-This file is the bootstrap architecture index.
+## Structural bootstrap
 
-## Canonicalized fronts
+The following architectural fronts are canonical:
 
-### A — North Star / Architecture Intent
-`10_ARCHITECTURE/HC.NORTH_STAR.md`
-Status: `CANONICALIZED`
+- A — North Star / Architecture Intent
+- B — Capability Map
+- C — Role / Authority
+- D — Task / Work Unit Contracts
+- E — Tester / Verifier / Evidence
+- F — Issue / Attempt State
+- G — Specialist Escalation
+- H — Parallel DAG / Resource Ownership
+- I — Technology Selection Framework
+- J — Technology Registry / Watch
+- K — Runtime / Repository Boundary
 
-### B — Capability Map
-`10_ARCHITECTURE/HC.CAPABILITY_MAP.md`
-Status: `CANONICALIZED`
+## Meaning of this milestone
 
-### C — Role / Authority Model
-`10_ARCHITECTURE/HC.ROLE_AUTHORITY_MODEL.md`
-Status: `CANONICALIZED`
+`STRUCTURAL_BASELINE_CANONICAL` means HC now has a coherent architecture and
+contract baseline sufficient to drive implementation.
 
-### D — Task / Work Unit Contracts
+It does NOT mean:
 
-Sources:
+- HC is autonomous;
+- runtime enforcement exists for all contracts;
+- checkpoint/resume is proven;
+- observability is complete;
+- MORCH can directly execute canonical WSL2 work;
+- an end-to-end autonomous chain has passed;
+- terminal convergence has been proven system-wide.
 
-- `11_CONTRACTS/HC.TASK_WORK_UNIT_CONTRACT.md`
-- `11_CONTRACTS/schemas/task-envelope.schema.json`
-- `11_CONTRACTS/schemas/work-unit.schema.json`
+## Next phase
 
-Status: `CANONICALIZED`
+Phase:
 
-### E — Tester / Verifier / Evidence
+`IMPLEMENTATION`
 
-Sources:
+Canonical active roadmap:
 
-- `11_CONTRACTS/HC.TESTER_VERIFIER_EVIDENCE_CONTRACT.md`
-- `11_CONTRACTS/schemas/test-evidence.schema.json`
-- `11_CONTRACTS/schemas/verification-result.schema.json`
+`04_BACKLOGS/HC.ROADMAP.ACTIVE.md`
 
-Key invariants:
+Initial safe parallel frontier:
 
-- Tester produces observations/evidence.
-- Verifier evaluates declared criteria and invariants.
-- UNKNOWN is not PASS.
-- Contradictory evidence prevents PASS.
-- Verification cannot silently repair implementation.
+- P1 Contract Enforcement Runtime
+- P2 State Transition Engine
+- P6 TraceContext + Failure Taxonomy
+- P8 MORCH → RORCH → WSL2 Runtime Bridge
+- P12 Technology Research / ADR Pipeline
 
-Status: `CANONICALIZED`
+## North Star
 
-### F — Issue / Attempt State Model
-`12_STATE/HC.ISSUE_ATTEMPT_STATE_MODEL.md`
-Status: `CANONICALIZED`
+North Star status:
 
-### H — Parallel DAG / Resource Ownership
+`NOT_YET_PROVEN`
 
-Sources:
-
-- `10_ARCHITECTURE/HC.PARALLEL_DAG_RESOURCE_OWNERSHIP.md`
-- `11_CONTRACTS/schemas/resource-claim.schema.json`
-
-Key invariants:
-
-- parallel by default;
-- READ/READ compatible;
-- WRITE and EXCLUSIVE conflict by default;
-- unknown scope overlap is conflict;
-- one active canonical writer;
-- superseded/stale work loses mutation authority.
-
-Status: `CANONICALIZED`
-
-### I — Technology Selection Framework
-`30_RESEARCH/HC.TECHNOLOGY_SELECTION_FRAMEWORK.md`
-Status: `CANONICALIZED`
-
-### J — Technology Registry / Watch
-
-Sources:
-
-- `30_RESEARCH/HC.TECHNOLOGY_REGISTRY.json`
-- `30_RESEARCH/technology-watch/HC.TECHNOLOGY_WATCH_POLICY.md`
-
-Status: `CANONICALIZED`
-
-### K — Runtime / Repository Boundary
-`10_ARCHITECTURE/HC.RUNTIME_REPO_BOUNDARY.md`
-Status: `CANONICALIZED`
-
-## Eligible front
-
-### G — Specialist Escalation
-
-Status:
-
-`ELIGIBLE`
-
-Dependencies D and E are canonical.
-
-G must preserve ISSUE_ID and ATTEMPT, remain lateral rather than supervisory,
-and return through the evidence/verification path.
-
-## Current frontier
-
-`G_SPECIALIST_ESCALATION`
+The North Star requires operational autonomous-chain proof and regression /
+terminal-convergence proof, not merely architectural completeness.
 
 ## HEAD authority
 
@@ -110,5 +68,3 @@ Git is authoritative for live HEAD.
 Canonical files use:
 
 `HEAD_POLICY=RESOLVE_LIVE_FROM_GIT`
-
-and retain the last reconciled parent SHA only for provenance.
