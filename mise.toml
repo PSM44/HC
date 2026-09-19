@@ -1,0 +1,32 @@
+[settings]
+lockfile = true
+
+[tools]
+uv = "0.12.16"
+
+[tasks.toolchain-info]
+description = "Show the effective HC provisioning toolchain"
+run = '''
+set -euo pipefail
+echo "mise=$(mise --version | tail -1)"
+echo "mise_path=$(command -v mise)"
+echo "uv=$(uv --version)"
+echo "uv_path=$(mise which uv)"
+'''
+
+[tasks.toolchain-check]
+description = "Verify the HC provisioning foundation"
+run = '''
+set -euo pipefail
+
+test "$(git rev-parse --show-toplevel)" = "/home/aazcl/repos/HC"
+test "$(git branch --show-current)" = "main"
+
+mise install
+
+command -v mise >/dev/null
+mise exec -- uv --version >/dev/null
+mise which uv >/dev/null
+
+echo "HC_TOOLCHAIN_CHECK=PASS"
+'''
