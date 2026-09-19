@@ -5,18 +5,28 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-from mcp.server import MCPServer
+import anyio
+
+from mcp import MCPError
+from mcp.server import Server, ServerRequestContext
+from mcp.server.stdio import stdio_server
+from mcp.types import (
+    INVALID_PARAMS,
+    CallToolRequestParams,
+    CallToolResult,
+    ListToolsResult,
+    PaginatedRequestParams,
+    TextContent,
+    Tool,
+)
 
 ROOT = Path("/home/aazcl/repos/HC")
 STATE_FILE = ROOT / "12_STATE" / "HC.CURRENT_STATE.json"
 
-mcp = MCPServer(
-    "HC Control",
-    instructions=(
-        "Read-only Harness Council control-plane PoC. "
-        "No tool exposed by this server may mutate canonical state."
-    ),
-)
+EMPTY_INPUT_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "additionalProperties": False,
+}
 
 
 def _git(*args: str) -> str:
@@ -29,10 +39,10 @@ def _git(*args: str) -> str:
     return result.stdout.strip()
 
 
-@mcp.tool()
-def hc_get_project_state() -> dict[str, Any]:
-    """Return observed read-only HC project and Git state."""
-    canonical_state = json.loads(STATE_FILE.read_text(encoding="utf-8"))
+def _project_state() -> dict[str, Any]:
+    canonical_state = json.loads(
+        STATE_FILE.read_text(encoding="utf-8")
+    )
 
     return {
         "project_id": "HC",
@@ -46,9 +56,7 @@ def hc_get_project_state() -> dict[str, Any]:
     }
 
 
-@mcp.tool()
-def hc_get_capabilities() -> dict[str, Any]:
-    """Return the initial HC capability model."""
+def _capabilities() -> dict[str, Any]:
     return {
         "observation": [
             "REMOTE_CANONICAL_OBSERVATION",
@@ -79,9 +87,7 @@ def hc_get_capabilities() -> dict[str, Any]:
     }
 
 
-@mcp.tool()
-def hc_get_dag() -> dict[str, Any]:
-    """Return the currently authorized high-level HC development DAG."""
+def _dag() -> dict[str, Any]:
     return {
         "policy": "PARALLEL_BY_DEFAULT",
         "active_fronts": [
@@ -111,5 +117,93 @@ def hc_get_dag() -> dict[str, Any]:
     }
 
 
+TOOLS = [
+    Tool(
+        name="hc_get_project_state",
+        description="Return observed read-only HC project and Git state.",
+        input_schema=EMPTY_INPUT_SCHEMA,
+    ),
+    Tool(
+        name="hc_get_capabilities",
+        description="Return the initial HC capability model.",
+        input_schema=EMPTY_INPUT_SCHEMA,
+    ),
+    Tool(
+        name="hc_get_dag",
+        description="Return the authorized high-level HC development DAG.",
+        input_schema=EMPTY_INPUT_SCHEMA,
+    ),
+]
+
+
+async def on_list_tools(
+    ctx: ServerRequestContext,
+    params: PaginatedRequestParams | None,
+) -> ListToolsResult:
+    return ListToolsResult(tools=TOOLS)
+
+
+def _tool_result(payload: dict[str, Any]) -> CallToolResult:
+    return CallToolResult(
+        content=[
+            TextContent(
+                type="text",
+                text=json.dumps(
+                    payload,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ),
+            )
+        ],
+        structured_content=payload,
+    )
+
+
+async def on_call_tool(
+    ctx: ServerRequestContext,
+    params: CallToolRequestParams,
+) -> CallToolResult:
+    arguments = params.arguments or {}
+
+    if arguments:
+        raise MCPError(
+            INVALID_PARAMS,
+            f"Tool {params.name} accepts no arguments",
+        )
+
+    if params.name == "hc_get_project_state":
+        return _tool_result(_project_state())
+
+    if params.name == "hc_get_capabilities":
+        return _tool_result(_capabilities())
+
+    if params.name == "hc_get_dag":
+        return _tool_result(_dag())
+
+    raise MCPError(
+        INVALID_PARAMS,
+        f"Unknown tool: {params.name}",
+    )
+
+
+server: Server[Any] = Server(
+    "HC Control",
+    on_list_tools=on_list_tools,
+    on_call_tool=on_call_tool,
+)
+
+
+async def main() -> None:
+    async with stdio_server() as (
+        read_stream,
+        write_stream,
+    ):
+        await server.run(
+            read_stream,
+            write_stream,
+            server.create_initialization_options(),
+        )
+
+
 if __name__ == "__main__":
-    mcp.run()
+    anyio.run(main)
