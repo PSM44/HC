@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hc:schema:resource-claim:v0.1",
+  "title": "HC ResourceClaim",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "resource_id",
+    "access"
+  ],
+  "properties": {
+    "resource_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "access": {
+      "enum": [
+        "READ",
+        "WRITE",
+        "EXCLUSIVE"
+      ]
+    },
+    "scope": {
+      "type": ["string", "null"]
+    }
+  }
+}

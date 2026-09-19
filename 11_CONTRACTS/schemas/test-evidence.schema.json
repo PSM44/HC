@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hc:schema:test-evidence:v0.1",
+  "title": "HC TestEvidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "evidence_id",
+    "issue_id",
+    "attempt_id",
+    "producer_role",
+    "producer_id",
+    "evidence_type",
+    "subject",
+    "status",
+    "provenance",
+    "sequence",
+    "sensitivity",
+    "persist"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "hc.test-evidence.v0.1"
+    },
+    "evidence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "work_unit_id": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer_role": {
+      "enum": [
+        "EXECUTOR",
+        "SPECIALIST",
+        "TESTER",
+        "VERIFIER"
+      ]
+    },
+    "producer_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "criterion_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "ERROR",
+        "SKIPPED",
+        "NOT_RUN",
+        "UNKNOWN"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "source"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "DIRECT_OBSERVATION",
+            "COMMAND_OUTPUT",
+            "TEST_RESULT",
+            "ARTIFACT",
+            "DERIVED"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parent_evidence_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "integrity": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "sensitivity": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "SENSITIVE",
+        "SECRET"
+      ]
+    },
+    "persist": {
+      "type": "boolean"
+    },
+    "payload_ref": {
+      "type": ["string", "null"]
+    }
+  }
+}

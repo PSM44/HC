@@ -12,10 +12,25 @@ Normative contract:
 
 - `HC.TASK_WORK_UNIT_CONTRACT.md`
 
-Machine-readable schemas:
+Schemas:
 
 - `schemas/task-envelope.schema.json`
 - `schemas/work-unit.schema.json`
+
+Status:
+
+`CANONICALIZED`
+
+### Front E — Tester / Verifier / Evidence
+
+Normative contract:
+
+- `HC.TESTER_VERIFIER_EVIDENCE_CONTRACT.md`
+
+Schemas:
+
+- `schemas/test-evidence.schema.json`
+- `schemas/verification-result.schema.json`
 
 Status:
 
@@ -25,13 +40,9 @@ Status:
 
 - SolverResult
 - SpecialistProblemPack / SpecialistReport
-- TestEvidence
-- VerificationResult
 - LearningEvent
 - TraceContext
 - Error/Failure classification
-
-Tester/Verifier/Evidence is owned by Front E.
 
 Specialist escalation is owned by Front G.
 
