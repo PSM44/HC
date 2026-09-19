@@ -1,6 +1,7 @@
-HC MORCH CONTINUITY — v0.1
+HC MORCH CONTINUITY — v0.2
 
-Adopt Harness Council (HC) as the active project.
+PROJECT=Harness Council
+PROJECT_ID=HC
 
 ROOT=/home/aazcl/repos/HC
 WINDOWS_ACCESS_CLONE=C:\01. GitHub\HC
@@ -8,18 +9,56 @@ BRANCH=main
 REMOTE=https://github.com/PSM44/HC.git
 CANONICAL_RUNTIME=WSL2/kali-linux
 
-Authority: HUMAN > MORCH > RORCH > EXE.
-Normal HUMAN interaction boundary: HUMAN ↔ MORCH.
-Everything below MORCH should be automated unless authority/safety requires HUMAN.
-SPECIALIST is a bounded lateral escalation and never self-verifies.
-TESTER is first-class and separate from VERIFIER.
+HEAD_POLICY=RESOLVE_LIVE_FROM_GIT
+LAST_RECONCILED_PARENT_HEAD=a99c13ef3037c3b413629b8f2aa2b52580b1828d
 
-Core doctrine: GOALS → LOOPS → DAG → AGENTS/SUBAGENTS → CROSS_CHECK → TERMINAL_CONVERGENCE.
-PARALLEL_BY_DEFAULT; sequence only for real dependency/conflict/safety/authority gates.
-Evidence before claim; verified before learning; UNKNOWN != PASS.
-ISSUE_ID + ATTEMPT are durable state. WAIT != RETRY != BLOCKED != FAIL.
-Execute → Converge → Report. No false DONE.
+Authority:
+HUMAN > MORCH > RORCH > EXECUTOR
 
-Current mission: reconcile live HC state, adopt baseline, recompute DAG, and advance all independent bootstrap fronts in parallel.
-Do not install the candidate stack yet. Do not mutate other projects.
-Technology selection uses deep research + ADR; targeted PoC only for unresolved material uncertainty; no tournament.
+Normal human boundary:
+HUMAN ↔ MORCH
+
+Core doctrine:
+GOALS → LOOPS → GRAPH/DAG → AGENTS/SUBAGENTS → CROSS_CHECK → TERMINAL_CONVERGENCE
+
+Operating invariants:
+- PARALLEL_BY_DEFAULT.
+- Sequence only on dependency, resource conflict, authority or safety.
+- EVIDENCE_BEFORE_CLAIM.
+- VERIFIED_BEFORE_LEARNING.
+- UNKNOWN != PASS.
+- WAIT != RETRY != BLOCKED != FAIL.
+- No false DONE.
+- Canonical conflicting writers are prohibited.
+- Technology implementation never changes role authority.
+
+Canonical bootstrap fronts:
+- A Architecture/North Star: CANONICALIZED
+- B Capability Map: CANONICALIZED
+- C Role/Authority: CANONICALIZED
+- F Issue/Attempt State: CANONICALIZED
+- I Technology Selection: CANONICALIZED
+- K Runtime/Repo Boundary: CANONICALIZED
+
+Next eligible fronts:
+- D Task / Work Unit Contracts
+- J Technology Registry / Watch
+
+Dependency state:
+- E Tester/Verifier/Evidence: blocked by D
+- H Parallel DAG/Resource Ownership: blocked by D
+- G Specialist Escalation: blocked by D + E
+
+OpenClaw HC-E05:
+- PARTIAL_VERIFIED
+- ACTIVE_OWNER=NO
+- real model execution blocked by upstream prepared-runtime/plugin-generation defect candidate
+- canonical evidence exists under 52_EVIDENCE/HC-E05
+- local repair churn stopped
+- upstream publication remains HUMAN-gated
+
+Runtime bridge:
+HC-BOOTSTRAP-RUNTIME-BRIDGE-001 remains OPEN_DEFERRED.
+
+Current mission:
+Advance D and J in parallel, then recompute eligibility for E/H and subsequently G.

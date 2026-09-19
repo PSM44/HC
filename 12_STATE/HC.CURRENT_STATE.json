@@ -1,12 +1,51 @@
 {
-  "schema": "hc.current-state.v0.1",
+  "schema": "hc.current-state.v0.2",
   "project_id": "HC",
+  "project_name": "Harness Council",
   "phase": "BOOTSTRAP",
   "branch": "main",
-  "head": "UNBORN",
+  "head_policy": "RESOLVE_LIVE_FROM_GIT",
+  "last_reconciled_parent_head": "a99c13ef3037c3b413629b8f2aa2b52580b1828d",
   "canonical_root": "/home/aazcl/repos/HC",
+  "canonical_runtime": "WSL2/kali-linux",
   "active_children": 0,
   "active_jobs": 0,
   "terminal_convergence": false,
-  "notes": ["Bootstrap structure created; architecture baseline pending convergence."]
+  "bootstrap_fronts": {
+    "A_ARCHITECTURE_NORTH_STAR": "CANONICALIZED",
+    "B_CAPABILITY_MAP": "CANONICALIZED",
+    "C_ROLE_AUTHORITY_MODEL": "CANONICALIZED",
+    "D_TASK_WORK_UNIT_CONTRACTS": "ELIGIBLE",
+    "E_TESTER_VERIFIER_EVIDENCE": "BLOCKED_BY_D",
+    "F_ISSUE_ATTEMPT_STATE_MODEL": "CANONICALIZED",
+    "G_SPECIALIST_ESCALATION": "BLOCKED_BY_D_E",
+    "H_PARALLEL_DAG_RESOURCE_OWNERSHIP": "BLOCKED_BY_D",
+    "I_TECHNOLOGY_SELECTION_FRAMEWORK": "CANONICALIZED",
+    "J_TECHNOLOGY_REGISTRY_WATCH": "ELIGIBLE",
+    "K_RUNTIME_REPO_BOUNDARY": "CANONICALIZED"
+  },
+  "candidate_pocs": {
+    "OPENCLAW_HC_E05": {
+      "lifecycle": "PARTIAL_VERIFIED",
+      "active_owner": false,
+      "real_model_execution": "BLOCKED_UPSTREAM_DEFECT",
+      "local_repair_churn": "STOP",
+      "evidence": [
+        "52_EVIDENCE/HC-E05/OPENCLAW_PREPARED_RUNTIME_REPRO.json",
+        "52_EVIDENCE/HC-E05/OPENCLAW_PREPARED_RUNTIME_REPRO.md"
+      ]
+    }
+  },
+  "control_plane_gaps": {
+    "HC_BOOTSTRAP_RUNTIME_BRIDGE_001": "OPEN_DEFERRED"
+  },
+  "next_parallel_fronts": [
+    "D_TASK_WORK_UNIT_CONTRACTS",
+    "J_TECHNOLOGY_REGISTRY_WATCH"
+  ],
+  "notes": [
+    "A/B/C/F/I/K bootstrap fronts are canonical.",
+    "Git is authoritative for live HEAD; canonical files do not embed their own commit SHA.",
+    "OpenClaw remains a candidate and is not an active owner."
+  ]
 }
