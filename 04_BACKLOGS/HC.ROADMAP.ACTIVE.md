@@ -1,343 +1,259 @@
 # HC Active Roadmap
 
-VERSION: v1.0-POST-BOOTSTRAP
+VERSION: v1.1-RUNTIME-FABRIC
 STATUS: ACTIVE
+PHASE: IMPLEMENTATION
+NORTH_STAR_STATUS: NOT_YET_PROVEN
 
 ## North Star
 
 Autonomous, durable, long-running, iterative, multipath, resumable,
 multi-harness AI execution with verified outcomes and human-auditable state.
 
-The structural architecture baseline is canonical.
-
-The North Star is not yet operationally proven.
-
-## Operating rule
+## Operating doctrine
 
 PARALLEL_BY_DEFAULT.
 
-Sequence only when required by:
+Sequence only for real dependency, resource conflict, authority, safety, or
+technical constraint.
+
+Architecture is provider-, model-, harness-, runtime-, and protocol-replaceable.
+
+## Current implementation state
+
+- P1 Contract Enforcement Runtime: `IMPLEMENTED_BASELINE_VERIFIED`
+- P2 State Transition Engine: `IMPLEMENTED_BASELINE_VERIFIED`
+- P3 Resource Scheduler: `ELIGIBLE`
+- P4 Tester / Verifier / Evidence Runtime: `ELIGIBLE`
+- P5 Specialist Runtime Routing: `BLOCKED_BY_P4`
+- P6 TraceContext + Failure Taxonomy: `CANONICALIZED`
+- P7 Checkpoint / Resume / Recovery: `ELIGIBLE`
+- P8 Runtime Fabric / Human-Relay Elimination: `ACTIVE_PRIORITY_P0`
+- P9 Observability: `ELIGIBLE`
+- P10 Verified Learning: `BLOCKED_BY_P4`
+- P11 Autonomous E2E Chain: `BLOCKED`
+- P12 Technology Research / ADR Pipeline: `CANONICALIZED`
+- P13 Regression + Terminal Convergence Gate: `BLOCKED_BY_P11`
 
-- dependency;
-- resource conflict;
-- authority;
-- safety;
-- technical constraint.
+## WBS architecture mapping
 
-## Post-bootstrap DAG
+| WBS | Module | Primary roadmap ownership |
+|---:|---|---|
+| 00.00 | HUMAN Authority | governance boundary |
+| 10.00 | MORCH | global orchestration |
+| 20.00 | HC Control Plane | P1 |
+| 30.00 | RORCH | P1 / P3 / P8 |
+| 40.00 | State Plane | P2 / P7 |
+| 50.00 | Resource / DAG Control | P3 |
+| 60.00 | Runtime / Session Fabric | P8 |
+| 70.00 | Harness Plane | P5 / P8 |
+| 80.00 | Execution Roles | P5 / P8 |
+| 90.00 | Tester / Evidence / Verifier | P4 |
+| 100.00 | Checkpoint / Resume / Recovery | P7 |
+| 110.00 | Model Plane / OmniRoute | P8 / P12 |
+| 120.00 | Observability / Telemetry | P6 / P9 |
+| 130.00 | Memory / Verified Learning | P10 |
+| 140.00 | Technology Governance | P12 |
+| 150.00 | Security / Trust / Secrets | cross-cutting |
+| 160.00 | Canonical Repo / State | cross-cutting |
+| 170.00 | Autonomous E2E Chain | P11 |
+| 180.00 | Terminal Convergence / North Star Gate | P13 |
 
-### P1 — Contract Enforcement Runtime
+## P8 — Runtime Fabric / Human-Relay Elimination
 
-Status:
+P8 is no longer modeled as one OpenClaw-only bridge.
 
-`ELIGIBLE`
+### P8.1 RuntimeAdapter contract
 
-Purpose:
+Define a replaceable runtime/session interface preserving TASK_ID, WORK_UNIT_ID,
+ISSUE_ID, ATTEMPT, exact authority, mutation scope, cancellation, evidence
+return, and terminal state.
 
-Implement executable enforcement for:
+### P8.2 Herdr qualification
 
-- TaskEnvelope;
-- WorkUnit;
-- delegation version;
-- permission checks;
-- mutation scope;
-- acceptance criteria;
-- terminal return contract.
+Candidate role: persistent terminal / process / session runtime.
 
-Acceptance direction:
+Required spike:
 
-Invalid or unauthorized contracts fail closed before execution.
+1. isolated installation;
+2. HC workspace;
+3. agent start;
+4. prompt;
+5. wait;
+6. read;
+7. detach / reattach;
+8. cancellation;
+9. server/process recovery;
+10. bounded write;
+11. evidence return.
 
-Dependencies:
+Herdr is a runtime candidate, not RORCH, TESTER, VERIFIER, STATE authority, or
+technology owner.
 
-None beyond canonical structural bootstrap.
+### P8.3 ACP / ACPX adapter
 
-### P2 — State Transition Engine
+Retain ACPX as an alternate structured agent-runtime path.
+OpenClaw remains an interaction/agent-runtime candidate.
+ACPX is not the sole runtime transport.
 
-Status:
+### P8.4 HarnessAdapter
 
-`ELIGIBLE`
+Candidate harnesses include Codex, Claude Code, Hermes, OpenCode, DSH,
+OpenClaw agent runtime, and future harnesses.
 
-Purpose:
+ROLE != PRODUCT.
 
-Implement durable machine-enforced:
+### P8.5 Model-policy binding
 
-- ISSUE_ID;
-- ATTEMPT;
-- state transitions;
-- WAIT / RETRY / BLOCKED / FAIL distinctions;
-- supersession;
-- state persistence;
-- stale-attempt rejection.
+Harness execution may bind to model policy rather than a fixed model.
+OmniRoute is the primary model-plane candidate.
 
-Dependencies:
+Example HC policies:
 
-None beyond canonical structural bootstrap.
+- `hc-control`
+- `hc-coding`
+- `hc-coding-hard`
+- `hc-review`
+- `hc-specialist`
+- `hc-background`
+- `hc-cheap`
 
-### P3 — Resource Scheduler / Ownership Enforcement
+### P8.6 First autonomous read-only WorkUnit
 
-Status:
+MORCH -> RORCH -> RuntimeAdapter -> Harness -> canonical WSL2 repo observation
+without HUMAN script relay and without canonical mutation.
 
-`BLOCKED_BY_P1`
+### P8.7 First bounded autonomous mutation
 
-Purpose:
+Exact WorkUnit and mutation scope; harness executes; TESTER runs; evidence
+persists; VERIFIER evaluates; canonical state persists; commit/push only when
+explicitly authorized.
 
-Implement:
+### P8.8 Persistent session / resume
 
-- READ / WRITE / EXCLUSIVE admission;
-- atomic claim grant;
-- single canonical writer;
-- conflict detection;
-- waiting on resource contention;
-- stale claim recovery.
+Prove detach, reattach, same-attempt continuation, crash/restart handling, and
+stale-attempt rejection.
 
-Dependencies:
+### P8.9 Human relay elimination gate
 
-P1.
+Target: `HUMAN_AS_RUNTIME_RELAY=NO`
 
-P2 may enhance durable claim recovery but does not block initial scheduler implementation.
+Normal manual boundary becomes `HUMAN <-> MORCH`.
 
-### P4 — Tester / Verifier / Evidence Runtime
+## P3 — Resource Scheduler
 
-Status:
+Status: `ELIGIBLE`
 
-`BLOCKED_BY_P1`
+Implement READ / WRITE / EXCLUSIVE claims, atomic admission, one canonical
+writer, contention -> WAIT, stale-claim rejection, deterministic release, and
+deadlock controls.
 
-Purpose:
+Prefer implementation by delegated harness after P8 first autonomous mutation
+is proven.
 
-Implement executable:
+## P4 — Tester / Evidence / Verifier Runtime
 
-- Tester role;
-- TestEvidence;
-- evidence provenance;
-- Verifier role;
-- VerificationResult;
-- contradiction handling;
-- no false PASS.
+Status: `ELIGIBLE`
 
-Dependencies:
+- P4.1 TESTER runtime
+- P4.2 TestEvidence
+- P4.3 Evidence persistence
+- P4.4 VERIFIER runtime
+- P4.5 Contradiction handling
+- P4.6 Verification gate
 
-P1.
+No WorkUnit PASS until mandatory tester/evidence/verifier work converges.
 
-### P5 — Specialist Runtime Routing
+## P7 — Checkpoint / Resume / Recovery
 
-Status:
+Status: `ELIGIBLE`
 
-`BLOCKED_BY_P1_P4`
+Integrate P2 State Engine with runtime/session persistence: checkpoint, resume,
+retry, crash recovery, idempotency, stale-authority rejection, and harness
+reattachment.
 
-Purpose:
+Herdr may provide runtime persistence mechanisms but cannot own canonical HC
+state semantics.
 
-Implement SpecialistProblemPack / SpecialistReport routing across replaceable
-specialist backends while preserving ISSUE_ID and ATTEMPT.
+## P9 — Observability
 
-Must return through evidence/verification flow.
+Status: `ELIGIBLE`
 
-Dependencies:
+Observe TaskEnvelope / WorkUnit lineage, ISSUE_ID / ATTEMPT, RuntimeAdapter,
+harness, model policy, effective model/provider, tester/verifier, latency,
+tokens, cost, failures, retries, checkpoint, and recovery.
 
-P1 + P4.
+## P10 — Verified Learning
 
-### P6 — TraceContext + Failure Taxonomy
+Status: `BLOCKED_BY_P4`
 
-Status:
+Only verified outcomes may become durable learning.
 
-`ELIGIBLE`
+`VERIFIED_BEFORE_LEARNING=YES`
 
-Purpose:
+## P11 — Autonomous E2E Chain
 
-Materialize remaining cross-cutting contract families:
+Status: `BLOCKED`
 
-- TraceContext;
-- Error/Failure classification;
-- reason codes;
-- correlation identifiers;
-- retryability classification.
+Target proof:
 
-Dependencies:
+HUMAN -> MORCH -> RORCH -> WorkUnit -> RuntimeAdapter -> Harness ->
+EXECUTOR / SPECIALIST -> TESTER -> EVIDENCE -> VERIFIER -> STATE PERSISTENCE ->
+TERMINAL CONVERGENCE -> MORCH -> HUMAN
 
-None beyond canonical structural bootstrap.
+No manual relay below MORCH.
 
-### P7 — Checkpoint / Resume / Recovery
+## P12 — Technology Governance
 
-Status:
+Status: `CANONICALIZED`
 
-`BLOCKED_BY_P2_P6`
+Operational flow:
+CAPABILITY_NEED -> RESEARCH -> HARD_REQUIREMENT_FILTER -> ADR -> TARGETED_POC ->
+VERIFICATION -> LIFECYCLE_DECISION -> TECHNOLOGY_WATCH
 
-Purpose:
+Current relevant candidates:
 
-Implement:
+- Herdr: runtime/session candidate; `RESEARCH_REQUIRED`
+- OpenClaw: interaction/agent-runtime candidate; implemented but not owner
+- ACPX: ACP runtime candidate
+- OmniRoute: model gateway candidate/current operational dependency outside HC ownership decision
+- Hermes: harness/learning candidate
+- Codex: coding harness candidate
+- Claude Code: coding/specialist harness candidate
+- DSH: runtime/execution candidate
 
-- checkpoint persistence;
-- same-attempt resume;
-- new-attempt retry from checkpoint;
-- crash recovery;
-- idempotent recovery;
-- stale authority rejection.
+Installed or working does not imply ACTIVE_OWNER.
 
-Dependencies:
+## P13 — Regression + Terminal Convergence
 
-P2 + P6.
+Status: `BLOCKED_BY_P11`
 
-### P8 — MORCH → RORCH → WSL2 Runtime Bridge
+Prove failure matrix, retry/resume, cancellation, stale-attempt protection,
+resource release, no active mandatory child/tester/verifier, evidence/state
+persistence, one final machine envelope, and no false DONE.
 
-Status:
+## Immediate frontier
 
-`ELIGIBLE`
+Priority is dependency-aware, not strictly sequential.
 
-Issue:
+### P0 operational priority
 
-`HC-BOOTSTRAP-RUNTIME-BRIDGE-001`
+Advance P8 until HC can delegate at least one bounded mutation without HUMAN
+script relay.
 
-Purpose:
+### Parallel research/control work
 
-Eliminate HUMAN-as-runtime-relay for normal execution.
+- P12 Herdr research + ADR/PoC definition
+- P8 OmniRoute model-policy design
+- P8 RuntimeAdapter and HarnessAdapter design
 
-Required properties:
+### Eligible implementation held for autonomous executor
 
-- exact identity;
-- exact delegated scope;
-- canonical WSL2 execution;
-- evidence return;
-- cancellation;
-- bounded authority;
-- no hidden canonical mutation.
-
-Dependencies:
-
-Structural K boundary already canonical.
-
-### P9 — Observability
-
-Status:
-
-`BLOCKED_BY_P6`
-
-Purpose:
-
-Implement structured:
-
-- logs;
-- traces;
-- metrics;
-- task/work-unit lineage;
-- ISSUE_ID / ATTEMPT correlation;
-- runtime health;
-- cost/usage;
-- failure classification.
-
-Dependencies:
-
-P6.
-
-### P10 — Verified Learning
-
-Status:
-
-`BLOCKED_BY_P4_P6`
-
-Purpose:
-
-Implement LearningEvent and verified-learning ingestion.
-
-Only verified evidence may become durable learning.
-
-Dependencies:
-
-P4 + P6.
-
-### P11 — Autonomous E2E Chain
-
-Status:
-
-`BLOCKED`
-
-Purpose:
-
-Prove an end-to-end autonomous chain:
-
-HUMAN
-→ MORCH
-→ RORCH
-→ WorkUnits
-→ Executors / Specialist
-→ Tester
-→ Evidence
-→ Verifier
-→ state persistence
-→ terminal return
-
-without manual relay below MORCH.
-
-Minimum dependencies:
-
-P1 + P2 + P3 + P4 + P5 + P7 + P8 + P9.
-
-P10 is valuable but not a prerequisite for the first autonomous chain proof.
-
-### P12 — Technology Research / ADR Pipeline
-
-Status:
-
-`ELIGIBLE`
-
-Purpose:
-
-Operationalize:
-
-- Technology Registry;
-- deep research;
-- ADRs;
-- targeted PoCs;
-- Technology Watch;
-- lifecycle transitions;
-- replacement decisions.
-
-OpenClaw remains:
-
-- lifecycle_state = IMPLEMENTED
-- verification_status = PARTIAL_VERIFIED
-- active_owner = false
-- blocked on upstream runtime defect candidate
-
-No candidate becomes ACTIVE_OWNER merely by being installed or functional.
-
-### P13 — Regression + Terminal Convergence Gate
-
-Status:
-
-`BLOCKED_BY_P11`
-
-Purpose:
-
-Prove:
-
-- failure matrix;
-- retry/resume;
-- cancellation;
-- stale-attempt protection;
-- single-envelope final return;
-- no active mandatory children;
-- deterministic state persistence;
-- no false DONE.
-
-Dependencies:
-
-P11.
-
-## Initial parallel frontier
-
-The following are independently eligible and should advance concurrently:
-
-1. P1 Contract Enforcement Runtime
-2. P2 State Transition Engine
-3. P6 TraceContext + Failure Taxonomy
-4. P8 MORCH/RORCH Runtime Bridge
-5. P12 Technology Research / ADR Pipeline
+Once first autonomous write is proven, delegate in parallel where resources do
+not conflict: P3, P4, P7, and P9.
 
 ## North Star gate
 
-HC must not claim the North Star until at minimum:
-
-- P11 autonomous E2E chain is proven;
-- P13 regression/terminal-convergence gate passes;
-- required state/evidence is canonical;
-- no unresolved mandatory blocker remains.
+HC must not claim North Star until P11 autonomous E2E and P13 terminal
+convergence/regression pass, state/evidence are canonical, mandatory blockers
+are resolved, and HUMAN is not the normal runtime relay below MORCH.
