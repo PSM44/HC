@@ -9,7 +9,7 @@ REMOTE=https://github.com/PSM44/HC.git
 CANONICAL_RUNTIME=WSL2/kali-linux
 
 HEAD_POLICY=RESOLVE_LIVE_FROM_GIT
-LAST_RECONCILED_PARENT_HEAD=b8ddaf560d8ab3d8707edeb1ed5cb944933b9632
+LAST_RECONCILED_PARENT_HEAD=ac0ea5b7975c0ba0ab52a618a8b4b69751ae5f2d
 
 PHASE=IMPLEMENTATION
 STRUCTURAL_BOOTSTRAP=CANONICALIZED
@@ -49,5 +49,6 @@ IMPLEMENTED + PARTIAL_VERIFIED + ACTIVE_OWNER=NO.
 It remains an isolated candidate with upstream runtime blocker evidence.
 
 Current mission:
-Advance P1/P2/P6/P8/P12 concurrently, recomputing eligibility after each
-material convergence. Do not serialize independent fronts.
+Advance P8 as ACTIVE_PRIORITY_P0, with P3/P4/P7/P9 eligible in parallel where
+resources do not conflict, recomputing eligibility after each material
+convergence. Do not serialize independent fronts.
